@@ -6,6 +6,9 @@
     "dev": "nodemon --watch app --watch bootstrap --watch config --watch .env -x \"node --harmony_proxies\" server.js",
     "start": "node --harmony_proxies server.js"
   },
+  "engines": {
+    "node": "5.1.1"
+  },
   "author": "",
   "license": "MIT",
   "description": "",
