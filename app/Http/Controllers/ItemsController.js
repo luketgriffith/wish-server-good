@@ -15,6 +15,10 @@ class ItemsController {
     const itemsJson = items.toJSON();
     response.ok(itemsJson)
   }
+  * claimGift (request, response) {
+    let data = request.all();
+    console.log('teh dats: ', data);
+  }
 
   * myItems (request, response) {
     let id = request.params('id')
