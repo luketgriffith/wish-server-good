@@ -8,16 +8,19 @@ const Database = use('Database');
 class ItemsController {
   * index (request, response) {
     let data = request.all();
-    console.log('data: ', data)
+
     const user = yield User.find(data.friend.profile_id);
     const items = yield user.items().fetch();
-    console.log('the items: ', items)
+
     const itemsJson = items.toJSON();
     response.ok(itemsJson)
   }
   * claimGift (request, response) {
     let data = request.all();
     console.log('teh dats: ', data);
+    yield Database.table('items').where('id', data.item.id).update({ claimed: true, claimed_by: data.user.id });
+    const item = yield Item.find(data.item.id);
+    response.ok(item);
   }
 
   * myItems (request, response) {
