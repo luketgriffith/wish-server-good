@@ -18,8 +18,16 @@ class ItemsController {
   * claimGift (request, response) {
     let data = request.all();
     console.log('teh dats: ', data);
-    yield Database.table('items').where('id', data.item.id).update({ claimed: true, claimed_by: data.user.id });
+    yield Database.table('items').where('id', data.item.id).update({ claimed: data.claim, claimed_by: data.user.id });
     const item = yield Item.find(data.item.id);
+    response.ok(item);
+  }
+
+  * singleItem (request, response) {
+    let id = request.params('id');
+    console.log('the id...', id)
+    const item = yield Item.find(id.id);
+    console.log('item...', item);
     response.ok(item);
   }
 
