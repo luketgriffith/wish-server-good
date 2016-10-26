@@ -16,7 +16,6 @@ class UsersController {
     let term = request.all();
     const users = yield Database.from('users').whereRaw('firstName LIKE ?', '%' + term.term + '%');
     const user = yield User.find(term.user);
-    console.log('user...', user.toJSON());
     const friends = yield user.friends().whereRaw('firstName LIKE ?', '%' + term.term + '%').fetch();
     const pending = yield Database.from('friend_requests').where('from_id', term.user);
 
@@ -31,7 +30,9 @@ class UsersController {
     for( var i = 0; i < pending.length; i++ ) {
       const getUser = yield User.find(pending[i].to_id)
       let gotUser = getUser.toJSON()
-      pendingArray.push(gotUser)
+      if(gotUser.firstName.includes(term.term)) {
+        pendingArray.push(gotUser)
+      }
     }
 
     let newArray = [];
@@ -93,7 +94,6 @@ class UsersController {
 
   * confirmFriend (request, response) {
     let data = request.all();
-    console.log('the data: ', data);
     let user = yield User.find(data.user.id);
     let newFriend = new Friend();
     newFriend.email = data.friend.email;
