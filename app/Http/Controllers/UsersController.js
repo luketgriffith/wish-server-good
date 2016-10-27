@@ -22,6 +22,7 @@ class UsersController {
     let friendsArray = friends.toJSON();
 
     function* getUser (id) {
+      //ok
       yield User.find(id);
     }
 
