@@ -30,7 +30,7 @@ class UsersController {
     for( var i = 0; i < pending.length; i++ ) {
       const getUser = yield User.find(pending[i].to_id)
       let gotUser = getUser.toJSON()
-      if(gotUser.firstName.includes(term.term)) {
+      if(gotUser.firstName.toLowerCase().includes(term.term)) {
         pendingArray.push(gotUser)
       }
     }
