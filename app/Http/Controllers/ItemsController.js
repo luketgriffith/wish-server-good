@@ -33,7 +33,9 @@ class ItemsController {
 
   * myItems (request, response) {
     let id = request.params('id')
-    const user = yield User.find(id);
+    console.log('id: ', id);
+    const user = yield User.find(id.id);
+    console.log('user: ', user);
     const items = yield user.items().fetch();
     const itemsJson = items.toJSON();
     response.ok(itemsJson);
